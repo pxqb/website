@@ -109,7 +109,7 @@
             opacity: 0;
             pointer-events: none;
             margin: 0;
-            padding-right: 4px;
+            padding-right: 12px;
         }
 
         .typewriter-mask {
@@ -119,10 +119,20 @@
             height: 100%;
             overflow: hidden;
             white-space: nowrap;
-            border-right: 4px solid var(--accent-1);
-            animation: typing 1.5s steps(12, end) forwards, blink 0.75s step-end infinite;
-            animation-delay: 0.5s;
+            animation: typing 6s ease-in-out infinite;
             width: 0;
+        }
+
+        .typewriter-mask::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 2px;
+            background-color: var(--accent-1);
+            box-shadow: 0 0 8px var(--accent-1);
+            animation: blink 0.8s step-end infinite;
         }
 
         .gradient-text {
@@ -133,17 +143,18 @@
             background: linear-gradient(to right, #ffffff 0%, var(--accent-1) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            padding-right: 4px;
+            padding-right: 12px;
         }
 
         @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+            0%, 15% { width: 0; }
+            45%, 55% { width: 100%; }
+            85%, 100% { width: 0; }
         }
 
         @keyframes blink {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--accent-1); }
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .subtitle {
