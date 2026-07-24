@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurahook.xyz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>AuraHook</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
-            --cyan: #00f3ff;
-            --magenta: #ff003c;
-            --dark: #050505;
+            --bg-color: #030305;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --accent-1: #8a2be2;
+            --accent-2: #4ea1ff;
+            --text-main: #f0f0f0;
+            --text-muted: #888899;
         }
 
         * {
@@ -19,336 +28,271 @@
         }
 
         body {
-            background-color: var(--dark);
-            color: #fff;
-            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             position: relative;
-            perspective: 1000px;
         }
 
-        body::before {
-            content: " ";
-            display: block;
+        body::before,
+        body::after {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        .grid-bg {
-            position: absolute;
-            top: 50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background-image: 
-                linear-gradient(to right, rgba(0, 243, 255, 0.15) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(0, 243, 255, 0.15) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: rotateX(70deg) translateY(-50px);
-            animation: moveGrid 10s linear infinite;
+            width: 50vw;
+            height: 50vw;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-1) 0%, transparent 60%);
+            opacity: 0.15;
+            filter: blur(100px);
             z-index: 0;
-            pointer-events: none;
-            box-shadow: inset 0 0 100px 100px var(--dark);
+            animation: float 20s infinite alternate ease-in-out;
         }
 
-        @keyframes moveGrid {
-            0% { transform: rotateX(70deg) translateY(0); }
-            100% { transform: rotateX(70deg) translateY(50px); }
+        body::after {
+            background: radial-gradient(circle, var(--accent-2) 0%, transparent 60%);
+            top: auto;
+            bottom: -20vw;
+            left: -10vw;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(10vw, -10vw) scale(1.2);
+            }
         }
 
         .container {
             position: relative;
             z-index: 10;
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 243, 255, 0.3);
-            box-shadow: 
-                0 0 20px rgba(0, 243, 255, 0.2),
-                inset 0 0 20px rgba(0, 243, 255, 0.1);
-            padding: 3.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
             width: 90%;
-            max-width: 550px;
+            max-width: 500px;
             text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
-            animation: containerPulse 4s infinite alternate;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 30px;
-            height: 30px;
-            background: var(--cyan);
-            clip-path: polygon(100% 0, 0 100%, 100% 100%);
-            box-shadow: 0 0 20px var(--cyan);
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
-        @keyframes containerPulse {
-            0% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.2), inset 0 0 10px rgba(0, 243, 255, 0.1); border-color: rgba(0, 243, 255, 0.3); }
-            100% { box-shadow: 0 0 35px rgba(255, 0, 60, 0.3), inset 0 0 20px rgba(255, 0, 60, 0.1); border-color: rgba(255, 0, 60, 0.5); }
-        }
-
-        h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .title-wrapper {
+            position: relative;
+            display: inline-block;
             margin-bottom: 0.5rem;
-            position: relative;
-            display: inline-block;
-            color: #fff;
-            text-shadow: 3px 3px 0px var(--cyan), -3px -3px 0px var(--magenta);
-            animation: text-glitch 3s infinite;
-            min-height: 5.5rem;
         }
 
-        h1 span#typewriter {
-            position: relative;
-            display: inline-block;
+        .invisible-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            opacity: 0;
+            pointer-events: none;
+            margin: 0;
+            padding-right: 4px;
         }
 
-        h1 span#typewriter::before, h1 span#typewriter::after {
-            content: attr(data-text);
+        .typewriter-mask {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
             height: 100%;
-            background: rgba(5, 5, 5, 0); 
-            pointer-events: none;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 4px solid var(--accent-1);
+            animation: typing 1.5s steps(12, end) forwards, blink 0.75s step-end infinite;
+            animation-delay: 0.5s;
+            width: 0;
         }
 
-        h1 span#typewriter::before {
-            left: 3px;
-            text-shadow: -2px 0 var(--magenta);
-            clip-path: inset(24% 0 58% 0);
-            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
-            background: var(--dark);
+        .gradient-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin: 0;
+            background: linear-gradient(to right, #ffffff 0%, var(--accent-1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-right: 4px;
         }
 
-        h1 span#typewriter::after {
-            left: -3px;
-            text-shadow: -2px 0 var(--cyan);
-            clip-path: inset(54% 0 7% 0);
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-            background: var(--dark);
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
 
-        .cursor {
-            display: inline-block;
-            width: 5px;
-            background-color: #fff;
-            animation: blink 1s step-end infinite;
-            vertical-align: text-bottom;
-            margin-left: 5px;
-            height: 4.5rem;
-        }
-        
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        @keyframes glitch-anim-1 {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
-            80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
-            100% { clip-path: inset(30% 0 40% 0); transform: translate(1px, -1px); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 1px); }
-            40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -2px); }
-            60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 2px); }
-            80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
-            100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, 1px); }
-        }
-
-        @keyframes text-glitch {
-            0%, 96%, 98%, 100% { transform: skewX(0deg); }
-            97% { transform: skewX(10deg); }
-            99% { transform: skewX(-10deg); }
+            from, to { border-color: transparent; }
+            50% { border-color: var(--accent-1); }
         }
 
         .subtitle {
-            color: #ccc;
-            font-size: 1rem;
-            margin-bottom: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 5px rgba(255,255,255,0.4);
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            text-transform: lowercase;
+            letter-spacing: 1px;
         }
 
         .btn {
-            display: inline-block;
-            padding: 1.2rem 3.5rem;
-            background: transparent;
-            color: var(--cyan);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            color: var(--text-main);
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            border: 2px solid var(--cyan);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4), inset 0 0 10px rgba(0, 243, 255, 0.2);
-            transition: all 0.15s ease-out;
+            border-radius: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
         .btn::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.4), transparent);
-            transition: left 0.5s;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
             z-index: -1;
         }
 
         .btn:hover {
-            background: var(--cyan);
-            color: var(--dark);
-            box-shadow: 0 0 40px var(--cyan), inset 0 0 20px rgba(255,255,255,0.5);
-            text-shadow: none;
+            transform: translateY(-2px);
+            border-color: transparent;
+            box-shadow: 0 10px 25px -5px rgba(138, 43, 226, 0.4);
         }
 
         .btn:hover::before {
-            left: 100%;
+            opacity: 1;
         }
 
         .media-container {
-            margin-top: 3rem;
+            margin-top: 2.5rem;
             position: relative;
-            border: 2px solid rgba(255, 0, 60, 0.5);
-            box-shadow: 0 0 25px rgba(255, 0, 60, 0.3);
+            border-radius: 12px;
             overflow: hidden;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .media-container:hover {
+            transform: scale(1.02);
         }
 
         .media-container::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 243, 255, 0.15) 2px,
-                rgba(0, 243, 255, 0.15) 4px
-            );
+            inset: 0;
+            background: linear-gradient(to top, rgba(3, 3, 5, 0.9) 0%, transparent 60%);
             pointer-events: none;
-            z-index: 1;
         }
 
         img {
             width: 100%;
             display: block;
-            filter: contrast(1.3) brightness(0.9) saturate(1.2);
-            animation: img-glitch 5s infinite;
+            filter: contrast(1.1) brightness(0.9);
         }
 
-        @keyframes img-glitch {
-            0%, 94%, 96%, 100% { filter: contrast(1.3) brightness(0.9) saturate(1.2) hue-rotate(0deg); transform: translate(0) scale(1); }
-            95% { filter: contrast(2) brightness(1.5) saturate(3) hue-rotate(90deg); transform: translate(-4px, 4px) scale(1.02); }
-            97% { filter: contrast(1.5) brightness(1.2) saturate(2) hue-rotate(-90deg); transform: translate(4px, -4px) scale(1.02); }
-            98% { filter: contrast(2) brightness(0.5) saturate(4) hue-rotate(180deg); transform: translate(-2px, 0) scale(1.01); }
+        .media-container:hover img {
+            animation: subtle-glitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
         }
 
-        .welcome-text {
-            margin-top: 1.5rem;
-            color: var(--cyan);
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-            animation: pulse-text 2s infinite alternate;
-        }
-        
-        @keyframes pulse-text {
-            0% { opacity: 0.7; }
-            100% { opacity: 1; }
+        @keyframes subtle-glitch {
+            0% {
+                transform: translate(0)
+            }
+
+            20% {
+                transform: translate(-1px, 1px)
+            }
+
+            40% {
+                transform: translate(-1px, -1px)
+            }
+
+            60% {
+                transform: translate(1px, 1px)
+            }
+
+            80% {
+                transform: translate(1px, -1px)
+            }
+
+            100% {
+                transform: translate(0)
+            }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 3rem; min-height: 4rem; }
-            .cursor { height: 3rem; }
-            .container { padding: 2rem 1.5rem; }
+            .container {
+                padding: 2rem 1.5rem;
+                width: 95%;
+            }
+
+            .invisible-text, .gradient-text {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="grid-bg"></div>
+
     <div class="container">
-        <h1><span id="typewriter" data-text=""></span><span class="cursor"></span></h1>
-        <p class="subtitle">the best phantom forces script</p>
-        <a href="https://discord.gg/wsaaCxJf4C" class="btn">Discord</a>
+        <div class="title-wrapper">
+            <h1 class="invisible-text">Aurahook.xyz</h1>
+            <div class="typewriter-mask">
+                <h1 class="gradient-text">Aurahook.xyz</h1>
+            </div>
+        </div>
+        <p class="subtitle">the best phantom forces script.</p>
+
+        <a href="https://discord.gg/wsaaCxJf4C" class="btn">
+            <span>Discord</span>
+        </a>
+
         <div class="media-container">
             <img src="cristiano-ronaldo-ronaldo.gif" alt="Ronaldo">
         </div>
-        <p class="welcome-text">welcome to aurahook brother.</p>
     </div>
 
-    <script>
-        const text = "Aurahook.xyz";
-        const element = document.getElementById("typewriter");
-        let i = 0;
-        let isDeleting = false;
-        
-        function getColor(index, total) {
-            const ratio = index / (total - 1);
-            const r = Math.round(255 + ratio * (138 - 255));
-            const g = Math.round(255 + ratio * (43 - 255));
-            const b = Math.round(255 + ratio * (226 - 255));
-            return `rgb(${r}, ${g}, ${b})`;
-        }
-        
-        function renderSpans(substring) {
-            let html = "";
-            for(let j = 0; j < substring.length; j++) {
-                html += `<span style="color: ${getColor(j, text.length)}">${substring[j]}</span>`;
-            }
-            return html;
-        }
-        
-        function typeWriter() {
-            if (!isDeleting && i <= text.length) {
-                let currentStr = text.substring(0, i);
-                element.innerHTML = renderSpans(currentStr);
-                element.setAttribute('data-text', currentStr);
-                i++;
-                setTimeout(typeWriter, 150);
-            } else if (!isDeleting && i > text.length) {
-                isDeleting = true;
-                setTimeout(typeWriter, 1500); 
-            } else if (isDeleting && i > 0) {
-                let currentStr = text.substring(0, i - 1);
-                element.innerHTML = renderSpans(currentStr);
-                element.setAttribute('data-text', currentStr);
-                i--;
-                setTimeout(typeWriter, 50);
-            } else if (isDeleting && i === 0) {
-                isDeleting = false;
-                setTimeout(typeWriter, 500);
-            }
-        }
-        
-        setTimeout(typeWriter, 500);
-    </script>
 </body>
+
 </html>
