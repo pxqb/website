@@ -170,6 +170,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            width: 100%;
+            max-width: 260px;
             padding: 1rem 2rem;
             background: rgba(0, 0, 0, 0.4);
             color: var(--text-main);
@@ -188,6 +190,25 @@
             border-color: var(--accent-1);
             background: rgba(138, 43, 226, 0.1);
             box-shadow: 0 10px 25px -5px rgba(138, 43, 226, 0.3), inset 0 0 10px rgba(138, 43, 226, 0.2);
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .purchase-btn {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.85), rgba(78, 161, 255, 0.8));
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 10px 25px -8px rgba(138, 43, 226, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        }
+
+        .purchase-btn:hover {
+            background: linear-gradient(135deg, rgba(154, 67, 237, 0.95), rgba(93, 171, 255, 0.9));
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 30px -6px rgba(78, 161, 255, 0.45), inset 0 0 12px rgba(255, 255, 255, 0.12);
         }
 
         .media-container {
@@ -277,9 +298,15 @@
         </div>
         <p class="subtitle">the best phantom forces script.</p>
 
-        <a href="https://discord.gg/wsaaCxJf4C" class="btn">
-            <span>Discord</span>
-        </a>
+        <div class="actions">
+            <a href="https://discord.gg/wsaaCxJf4C" class="btn">
+                <span>Discord</span>
+            </a>
+
+            <a href="https://aurahook.sell.app/product/aurahook?store=aurahook&amp;locale=en&amp;quantity=1" class="btn purchase-btn" target="_blank" rel="noopener noreferrer">
+                <span>Purchase</span>
+            </a>
+        </div>
 
         <div class="media-container">
             <img src="cristiano-ronaldo-ronaldo.gif" alt="Ronaldo">
