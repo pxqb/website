@@ -1,320 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraHook</title>
-    
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=JetBrains+Mono:wght@400&display=swap"
-        rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-color: #030305;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --card-border: rgba(255, 255, 255, 0.05);
-            --accent-1: #8a2be2;
-            --accent-2: #4ea1ff;
-            --text-main: #f0f0f0;
-            --text-muted: #888899;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        body::before,
-        body::after {
-            content: '';
-            position: absolute;
-            width: 50vw;
-            height: 50vw;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-1) 0%, transparent 60%);
-            opacity: 0.15;
-            filter: blur(100px);
-            z-index: 0;
-            animation: float 20s infinite alternate ease-in-out;
-        }
-
-        body::after {
-            background: radial-gradient(circle, var(--accent-2) 0%, transparent 60%);
-            top: auto;
-            bottom: -20vw;
-            left: -10vw;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            100% {
-                transform: translate(10vw, -10vw) scale(1.2);
-            }
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 3rem;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .title-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 0;
-        }
-
-        .invisible-text {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: -2px;
-            opacity: 0;
-            pointer-events: none;
-            margin: 0;
-            padding-right: 12px;
-        }
-
-        .typewriter-mask {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 8s ease-in-out infinite;
-            width: 0;
-        }
-
-        .typewriter-mask::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 15%;
-            height: 70%;
-            width: 2px;
-            background-color: var(--accent-1);
-            box-shadow: 0 0 8px var(--accent-1);
-            animation: blink 0.8s step-end infinite;
-        }
-
-        .gradient-text {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: -2px;
-            margin: 0;
-            background: linear-gradient(to right, #ffffff 0%, var(--accent-1) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            padding-right: 12px;
-        }
-
-        @keyframes typing {
-            0%, 10% { width: 0; }
-            40%, 65% { width: 100%; }
-            95%, 100% { width: 0; }
-        }
-
-        @keyframes blink {
-            from, to { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .subtitle {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin: 1.5rem 0;
-            text-transform: lowercase;
-            letter-spacing: 1px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 260px;
-            padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--text-main);
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-1);
-            background: rgba(138, 43, 226, 0.1);
-            box-shadow: 0 10px 25px -5px rgba(138, 43, 226, 0.3), inset 0 0 10px rgba(138, 43, 226, 0.2);
-        }
-
-        .actions {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .purchase-btn {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.85), rgba(78, 161, 255, 0.8));
-            border-color: rgba(255, 255, 255, 0.16);
-            box-shadow: 0 10px 25px -8px rgba(138, 43, 226, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14);
-        }
-
-        .purchase-btn:hover {
-            background: linear-gradient(135deg, rgba(154, 67, 237, 0.95), rgba(93, 171, 255, 0.9));
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 12px 30px -6px rgba(78, 161, 255, 0.45), inset 0 0 12px rgba(255, 255, 255, 0.12);
-        }
-
-        .media-container {
-            margin-top: 2.5rem;
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .media-container:hover {
-            transform: scale(1.02);
-        }
-
-        .media-container::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(3, 3, 5, 0.9) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        img {
-            width: 100%;
-            display: block;
-            filter: contrast(1.1) brightness(0.9);
-        }
-
-        .media-container:hover img {
-            animation: subtle-glitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-        }
-
-        @keyframes subtle-glitch {
-            0% {
-                transform: translate(0)
-            }
-
-            20% {
-                transform: translate(-1px, 1px)
-            }
-
-            40% {
-                transform: translate(-1px, -1px)
-            }
-
-            60% {
-                transform: translate(1px, 1px)
-            }
-
-            80% {
-                transform: translate(1px, -1px)
-            }
-
-            100% {
-                transform: translate(0)
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 2rem 1.5rem;
-                width: 95%;
-            }
-
-            .invisible-text, .gradient-text {
-                font-size: 2.5rem;
-            }
-
-            .subtitle {
-                font-size: 0.8rem;
-            }
-        }
-    </style>
+    <meta property="og:title" content="aurahook">
+    <meta property="og:description" content="aurahook">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#20dfaf">
+    <title>aurahook</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-    <div class="container">
-        <div class="title-wrapper">
-            <h1 class="invisible-text">Aurahook.xyz</h1>
-            <div class="typewriter-mask">
-                <h1 class="gradient-text">Aurahook.xyz</h1>
+    <div id="main-content">
+        <div class="ctr">
+            <div class="bg">
+                <div class="items">
+                    <div class="border-light">
+                        <div class="border-dark">
+                            <div class="border-inside">
+                                <div class="container">
+                                    <div class="rainbow-container">
+                                        <div class="rainbow-1"></div>
+                                        <div class="rainbow-2"></div>
+                                        <div class="rainbow-3"></div>
+                                    </div>
+                                    <div id="inside" class="inside">
+                                        <div id="body" class="body ctrd">
+                                            <span class="title">aurahook</span>
+                                            <div class="links">
+                                                <a href="https://aurahook.sell.app/product/aurahook?quantity=1" target="_blank" id="buy-btn" class="button">buy</a>
+                                                <a href="https://discord.gg/wsaaCxJf4C" target="_blank" class="button">discord</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <p class="subtitle">the best phantom forces script.</p>
-
-        <div class="actions">
-            <a href="https://discord.gg/wsaaCxJf4C" class="btn">
-                <span>Discord</span>
-            </a>
-
-            <a href="https://aurahook.sell.app/product/aurahook?store=aurahook&amp;locale=en&amp;quantity=1" class="btn purchase-btn" target="_blank" rel="noopener noreferrer">
-                <span>Purchase</span>
-            </a>
-        </div>
-
-        <div class="media-container">
-            <img src="cristiano-ronaldo-ronaldo.gif" alt="Ronaldo">
-        </div>
-
-        <p class="subtitle" style="margin-top: 2.5rem; margin-bottom: 0; opacity: 0.7;">developed by @runonthread, @gu29</p>
     </div>
-
+    <div class="logout-messages"></div>
+    <script src="script.js"></script>
 </body>
-
 </html>
