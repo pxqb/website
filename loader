@@ -1,0 +1,33 @@
+local s={
+[113491250]="https://luaprot.net/api/v3/loaders/get/28813043188777521677",
+[2862098693]="https://luaprot.net/api/v3/loaders/get/22954538689948047848"
+}
+local id=game.GameId
+local u=s[id]
+if not u then return game.Players.LocalPlayer:Kick("Unsupported game.")end
+local src=('lp_key=%q;loadstring(game:HttpGet(%q))()'):format(lp_key,u)
+if id~=113491250 then return loadstring(src)()end
+local e=(identifyexecutor()or""):lower()
+local f,a
+if e:find("volt")or e:find("synapse")or e:find("nexomia")then
+ f,a=run_on_actor,getactors()
+elseif e:find("velocity")or e:find("potassium")or e:find("real")then
+ f,a=run_on_thread,getactorthreads()
+end
+if not f then
+ setfflag("DebugRunParallelLuaOnMainThread","True")
+ queue_on_teleport("repeat task.wait()until game:IsLoaded()task.wait(1);"..src)
+ return game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId,game.JobId)
+end
+local p=[[local id=... local ok,c=pcall(get_comm_channel,id)if not ok then ok,c=pcall(get_comm_channel,tostring(id))end if ok and c then local s=getrenv().shared if s and s.require then c:Fire()end end]]
+local done
+for _,v in a do
+ local actor=v
+ local cid,c=create_comm_channel()
+ c.Event:Once(function()
+  if done then return end
+  done=true
+  f(actor,src)
+ end)
+ f(actor,p,cid)
+end
