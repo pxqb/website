@@ -9,11 +9,11 @@ local src=('lp_key=%q;loadstring(game:HttpGet(%q))()'):format(lp_key,u)
 if id~=113491250 then return loadstring(src)()end
 local e=(identifyexecutor()or""):lower()
 local f,a
-if e:find("volt")or e:find("synapse")or e:find("nexomia")then
+if e:find("volt")or e:find("synapse")or e:find("lucid")then
  f,a=run_on_actor,getactors()
 elseif e:find("lynx")then
  f,a=run_on_actor,getdeletedactors()
-elseif e:find("velocity")or e:find("potassium")or e:find("real")or e:find("lucid")or e:find("wave")then
+elseif e:find("velocity")or e:find("potassium")or e:find("real")or e:find("nexomia")or e:find("wave")then
  f,a=run_on_thread,getactorthreads()
 end
 if not f then
