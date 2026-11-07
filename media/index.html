@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#101010">
@@ -54,9 +53,9 @@
     }
 
     .wrap {
-      max-width: 1232px;
+      max-width: 1900px;
       margin: 0 auto;
-      padding: 0 36px;
+      padding: 0 30px;
     }
     .site-header {
       height: 39px;
@@ -94,35 +93,11 @@
     .home-link:hover { color: #fff; border-color: #777; }
 
     main { padding-top: 28px; padding-bottom: 72px; }
-    .section-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      border-bottom: 1px solid #303030;
-      padding: 0 0 12px;
-      margin-top: 0;
-      margin-bottom: 18px;
-    }
-    .section-heading h2 {
-      margin: 0;
-      color: #a8a8a8;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .5px;
-    }
-    .video-count {
-      color: #666;
-      font-size: 10px;
-      letter-spacing: .5px;
-      white-space: nowrap;
-    }
-
     /* Three columns on desktop, two on tablet, one on phone. */
     .video-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px 18px;
+      gap: 24px 20px;
       align-items: start;
     }
     .video-card {
@@ -218,13 +193,20 @@
       text-overflow: ellipsis;
     }
     .card-source {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
-      color: #797979;
-      font-size: 10px;
+      min-width: 52px;
+      padding: 4px 10px;
+      border: 1px solid #383838;
+      background: linear-gradient(180deg, #242424, #191919);
+      color: #c6c6c6;
+      font-size: 11px;
+      line-height: 1.3;
       text-decoration: none;
-      letter-spacing: .3px;
     }
-    .card-source:hover { color: var(--cyan); }
+    .card-source:hover { border-color: #707070; color: #fff; }
     .placeholder-card .card-media {
       background: #141414;
       display: flex;
@@ -316,6 +298,10 @@
     }
     .editor-video-controls { display: flex; flex-shrink: 0; gap: 5px; }
     .mini-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
       border: 1px solid #343434;
       background: #1d1d1d;
       color: #aaa;
@@ -345,7 +331,6 @@
       .site-header { height: 36px; }
       .wrap { padding-left: 16px; padding-right: 16px; }
       main { padding-top: 20px; padding-bottom: 55px; }
-      .section-heading { margin-top: 0; }
       .video-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
       .editor { padding: 15px; }
       .editor-form { flex-direction: column; }
@@ -368,14 +353,15 @@
 
   <main class="wrap">
     <!-- The editor only appears when you visit /media/?edit=1 -->
-    <section class="editor" id="editor" hidden aria-label="Video editor">
+    <section class="editor" id="editor" aria-label="Video editor" hidden="">
       <div class="editor-header">
         <h2>MEDIA EDITOR</h2>
         <span class="editor-label">LOCAL PREVIEW</span>
       </div>
-      <p>Paste YouTube links below, one per line. Rearrange or remove them, then download the updated page.</p>
+      <p>Paste YouTube links below, one per line. Newly added videos appear first. Rearrange or remove them, then download the updated page.</p>
       <form class="editor-form" id="video-form">
-        <textarea id="video-input" rows="2" aria-label="YouTube video links" placeholder="https://www.youtube.com/watch?v=...&#10;https://youtu.be/..."></textarea>
+        <textarea id="video-input" rows="2" aria-label="YouTube video links" placeholder="https://www.youtube.com/watch?v=...
+https://youtu.be/..."></textarea>
         <button class="action" type="submit">+ ADD VIDEOS</button>
       </form>
       <div class="editor-status" id="editor-status" role="status" aria-live="polite"></div>
@@ -386,18 +372,44 @@
       </div>
     </section>
 
-    <div class="section-heading">
-      <h2>VIDEO ARCHIVE</h2>
-      <span class="video-count" id="video-count">00 VIDEOS</span>
-    </div>
-
     <div class="video-grid" id="video-grid" aria-live="polite"></div>
   </main>
 
   <!-- Videos published to the website live here. You can also edit this list manually. -->
   <!-- VIDEO_DATA_BEGIN -->
   <script type="application/json" id="published-videos">
-[]
+[
+  "NfR9NHnt5LI",
+  "RlWOSnuJjmU",
+  "DdVUkDLLdYY",
+  "EiY0SFIU1RE",
+  "8VlZArj22Rg",
+  "6JLY59StqHI",
+  "M7hMuKRGQL8",
+  "WPIaPea_jUE",
+  "CipKJck32co",
+  "Q9XFR3i2S5E",
+  "Ac8Zp3brMbE",
+  "xivReXHEQh0",
+  "RDhxgghHHwM",
+  "uaDhLUJhniE",
+  "QmxTlOEBTQM",
+  "HoVLF3tnwA8",
+  "m2BE6mJs98k",
+  "7Mg1t_SKXvY",
+  "dboKFl4hweI",
+  "wf7nl2BVxpc",
+  "s6DA6TgEEQw",
+  "-7jTibKimCc",
+  "Q6Ol9j_IeDw",
+  "cJ2IBdWVvdI",
+  "DvL2iFvLjn4",
+  "G-6cL_l6BcA",
+  "wm_WSvrv_lc",
+  "rte1kCDL8g8",
+  "Jm3tTJwhSBs",
+  "gJsjRmYk-QM"
+]
   </script>
   <!-- VIDEO_DATA_END -->
 
@@ -407,7 +419,6 @@
 
       const dataNode = document.getElementById('published-videos');
       const grid = document.getElementById('video-grid');
-      const count = document.getElementById('video-count');
       const editor = document.getElementById('editor');
       const editorVideos = document.getElementById('editor-videos');
       const input = document.getElementById('video-input');
@@ -473,11 +484,11 @@
         media.append(play);
         const details = element('div', 'card-details');
         const name = element('span', 'card-name', `VIDEO ${number}`);
-        const link = element('a', 'card-source', '↗ YOUTUBE');
+        const link = element('a', 'card-source', 'Visit');
         link.href = `https://www.youtube.com/watch?v=${id}`;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.setAttribute('aria-label', `Open video ${number} on YouTube`);
+        link.setAttribute('aria-label', `Visit video ${number} on YouTube`);
         details.append(name, link);
         root.append(media, details);
         return root;
@@ -500,7 +511,6 @@
           ? videos.map((id, index) => card(id, index))
           : Array.from({ length: 6 }, (_, index) => placeholder(index));
         grid.replaceChildren(...items);
-        count.textContent = `${String(videos.length).padStart(2, '0')} ${videos.length === 1 ? 'VIDEO' : 'VIDEOS'}`;
       }
 
       function showStatus(message, error = false) {
@@ -512,8 +522,14 @@
         editorVideos.replaceChildren();
         videos.forEach((id, index) => {
           const row = element('div', 'editor-video');
-          row.append(element('span', '', `${String(index + 1).padStart(2, '0')}  ·  youtube.com/watch?v=${id}`));
+          row.append(element('span', '', `VIDEO ${String(index + 1).padStart(2, '0')}  ·  ${id}`));
           const controls = element('div', 'editor-video-controls');
+          const visit = element('a', 'mini-action', 'Visit');
+          visit.href = `https://www.youtube.com/watch?v=${id}`;
+          visit.target = '_blank';
+          visit.rel = 'noopener noreferrer';
+          visit.setAttribute('aria-label', `Visit video ${index + 1} on YouTube`);
+          controls.append(visit);
           const up = element('button', 'mini-action', '↑');
           up.type = 'button';
           up.title = 'Move up';
@@ -559,15 +575,18 @@
           event.preventDefault();
           const entries = input.value.split(/\r?\n/).map(value => value.trim()).filter(Boolean);
           if (!entries.length) return showStatus('Paste at least one YouTube link.', true);
-          let added = 0;
+          const newIds = [];
           let invalid = 0;
           let duplicate = 0;
           for (const value of entries) {
             const id = videoId(value);
             if (!id) invalid++;
-            else if (videos.includes(id)) duplicate++;
-            else { videos.push(id); added++; }
+            else if (videos.includes(id) || newIds.includes(id)) duplicate++;
+            else newIds.push(id);
           }
+          // Keep pasted links in their entered order, ahead of older videos.
+          videos.unshift(...newIds);
+          const added = newIds.length;
           if (added) input.value = '';
           redraw();
           showStatus(`${added} video${added === 1 ? '' : 's'} added${invalid ? ` · ${invalid} invalid link${invalid === 1 ? '' : 's'}` : ''}${duplicate ? ` · ${duplicate} duplicate${duplicate === 1 ? '' : 's'}` : ''}. Download to publish.`, invalid > 0);
@@ -599,5 +618,6 @@
       redraw();
     })();
   </script>
-</body>
-</html>
+
+
+</body></html>
